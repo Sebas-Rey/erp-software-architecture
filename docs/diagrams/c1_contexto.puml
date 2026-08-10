@@ -1,0 +1,24 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Person(admin, "Administrador del Sistema", "Usuario que gestiona los roles y permisos del sistema.")
+Person(purchasingManager, "Gestor de Compras", "Usuario que gestiona productos y proveedores.")
+Person(inventoryManager, "Gestor de Inventario", "Usuario que gestiona el inventario.")
+Person(invoiceManager, "Gestor de Facturas", "Usuario que gestiona las facturas y pagos.")
+Person(costManager, "Gestor de Costos", "Usuario que gestiona los costos de los productos y servicios, y stock de productos.")
+Person(employee, "Empleado", "Usuario que realiza tareas administrativas y de gestión generales.")
+Person(executive, "Ejecutivo", "Usuario que toma decisiones estratégicas y supervisa el desempeño del sistema.")
+System(erp, "Sistema ERP", "Gestiona los procesos de negocio de la empresa.")
+System_Ext(accounting_system, "Sistema Contable Externo", "Sistema para la contabilidad y finanzas.")
+
+Rel(admin, erp, "Administra roles y permisos del sistema")
+Rel(purchasingManager, erp, "Gestiona productos y proveedores")
+Rel(inventoryManager, erp, "Gestiona el inventario")
+Rel(invoiceManager, erp, "Gestiona facturas y pagos")
+Rel(costManager, erp, "Gestiona costos y stock de productos")
+Rel(employee, erp, "Consulta y gestiona sus labores")
+Rel(executive, erp, "Supervisa el desempeño del sistema")
+Rel(erp, accounting_system, "Envía datos de facturas y asientos contables")
+
+@enduml

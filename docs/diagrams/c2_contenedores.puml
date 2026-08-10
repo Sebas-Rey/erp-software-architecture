@@ -1,0 +1,27 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(admin, "Administrador del Sistema")
+Person(purchaisingManager, "Gestor de Compras")
+Person(inventoryManager, "Gestor de Inventario")
+Person(invoiceManager, "Gestor de Facturas")
+Person(costManager, "Gestor de Costos")
+Person(employee, "Empleado")
+Person(executive, "Ejecutivo")
+
+System_Boundary(erp, "Sistema ERP") {
+    Container(web, "Aplicación Web", "JavaScript, React", "Interfaz mediante la cual los usuarios interactúan con el ERP.")
+    Container(api, "API Monolítica + Backend", "Python + Django + NodeJS", "Gestiona la lógica de negocio, validaciones y procesos del ERP.")
+    ContainerDb(db, "Base de Datos", "PostgreSQL", "Almacena productos, proveedores, órdenes de compra y demás información.")
+}
+
+Rel(admin, web, "Usa", "HTTPS")
+Rel(purchaisingManager, web, "Usa", "HTTPS")
+Rel(inventoryManager, web, "Usa", "HTTPS")
+Rel(invoiceManager, web, "Usa", "HTTPS")
+Rel(costManager, web, "Usa", "HTTPS")
+Rel(employee, web, "Usa", "HTTPS")
+Rel(executive, web, "Usa", "HTTPS")
+Rel(web, api, "Hace llamadas a la API", "HTTPS/JSON")
+Rel(api, db, "Lee y escribe", "JDBC")
+@enduml

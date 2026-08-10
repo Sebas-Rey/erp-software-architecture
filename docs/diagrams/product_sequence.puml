@@ -1,0 +1,37 @@
+@startuml
+actor "Gestor de Compras" as purchaisingManager
+actor "Empleado" as employee
+participant "WEB" as web
+participant "API" as api
+database "DB" as db
+
+'Como gestor de compras, quiero registrar proveedores con sus datos comerciales, para disponer de información actualizada de los proveedores.'
+purchaisingManager -> web: Registra el proveedor con sus datos comerciales y envía el formulario
+activate web
+web -> api: POST /api/proveedores (datos del proveedor)
+activate api
+api -> api: Valida los datos
+api -> db: INSERT INTO proveedores (...)
+activate db
+db --> api: Proveedor creado con ID
+deactivate db
+api --> web: 201 Created (proveedor con ID)
+deactivate api
+web --> purchaisingManager: Muestra mensaje de éxito y actualiza lista
+deactivate web
+
+'Como empleado, quiero filtrar mis labores diarias y pendientes según la prioridad, para organizar mis actividades'
+employee -> web: Selecciona una prioridad
+activate web
+web -> api: GET /api/labores (filtro por prioridad)
+activate api
+api -> db: SELECT * FROM labores WHERE prioridad = ...
+activate db
+db --> api: Lista de labores filtradas
+deactivate db
+api --> web: 200 OK (lista de labores)
+deactivate api
+web --> employee: Muestra lista de labores filtradas
+deactivate web
+
+@enduml

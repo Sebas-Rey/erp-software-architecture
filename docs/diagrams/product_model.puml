@@ -1,0 +1,37 @@
+@startuml
+
+'Historia 1: Registrar Proveedor'
+entity "Proveedor" {
+  * id_proveedor : integer <<PK>>
+  --
+  * razon_social : varchar(150)
+  contacto : varchar(100)
+}
+
+'Historia 2: Filtrar Labores por Prioridad'
+entity "Empleado" {
+  * id_empleado : integer <<PK>>
+  --
+  nombre : varchar(100)
+  cargo : varchar(50)
+}
+entity "Labor" {
+  * id_labor : integer <<PK>>
+  --
+  id_prioridad : integer <<FK>>
+  descripcion : text
+}
+entity "Prioridad"{
+  * id_prioridad : integer <<PK>>
+  --
+  nombre : varchar(20)
+}
+entity "EmpleadoxLabor" {
+  * id_empleado : integer <<FK>>
+  * id_labor : integer <<FK>>
+}
+
+Empleado "1" -- "0..*" EmpleadoxLabor
+Prioridad "1" -- "0..*" Labor
+Labor "1" -- "0..*" EmpleadoxLabor
+@enduml
